@@ -1,22 +1,23 @@
 {
-  "name": "catfact",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "concurrently \"nodemon index.js\" \"cd client && ng serve -o"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^6.3.0",
-    "nodemon": "^2.0.15"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "env": "^0.0.2",
-    "express": "^4.17.1",
-    "path": "^0.12.7"
-  }
+    "name": "catfact",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "concurrently \"nodemon index.js\" \"cd client && ng serve -o"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "concurrently": "^6.3.0",
+        "nodemon": "^2.0.15"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "env": "^0.0.2",
+        "express": "^4.17.1",
+        "path": "^0.12.7"
+    }
 }
