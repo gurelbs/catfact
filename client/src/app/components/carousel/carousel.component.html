@@ -8,25 +8,16 @@
   [counter]="true"
   objectFit="contain"
   [loop]="true"
-  [arrowsOutside]=true
+  [arrowsOutside]="true"
   [lightDOM]="true"
 >
-  >
   <div *ngIf="facts.length > 0">
     <div *ngFor="let fact of facts">
       <div class="carousel-cell-wrap">
-        <div class="carousel-cell">
-          <img
-            class="img-bg"
-            src="https://source.unsplash.com/600x40{{
-              facts.indexOf(fact)
-            }}/?cat,cats"
-            alt="cat photo"
-          />
+        <div class="carousel-cell {{ facts.indexOf(fact) === 0 && 'active' }}" >
           <h5 class="fact-text">{{ fact["fact"] }}</h5>
         </div>
       </div>
     </div>
   </div>
 </carousel>
-<!-- {{ facts.indexOf(fact) === 0 && 'active' }} -->
