@@ -1,9 +1,6 @@
-<div>
-    <h1>Wellcome To Cat Fact!</h1>
-    <div *ngIf="!!facts">
-        <p>{{facts.length}} cat facts founds.</p>
-        <div *ngFor="let fact of facts">
-            {{facts.indexOf(fact)+1 || null}}: {{fact["fact"]}}
-        </div>
-    </div>
+<div class="main container-fluid h-100">
+  <h1>Wellcome To Cat Fact!</h1>
+  <div class="container carousel-wrap">
+    <app-carousel></app-carousel>
+  </div>
 </div>
