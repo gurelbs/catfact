@@ -1,22 +1,29 @@
-<carousel
-  class="carousel-html-content"
-  [images]="images"
-  [height]="500"
-  [borderRadius]="10"
-  arrowsTheme="dark"
-  [cellsToShow]="1"
-  [counter]="true"
-  objectFit="contain"
-  [loop]="true"
-  [arrowsOutside]="true"
->
-  <div *ngIf="!!facts.length">
-    <div *ngFor="let fact of facts">
-      <div class="carousel-cell-wrap">
-        <div class="carousel-cell" >
-          {{ fact["fact"] }}
+<div *ngIf="facts.length > 0">
+  <swiper
+    #swiper
+    [config]="config"
+    (swiper)="onSwiper($event)"
+    (slideChange)="onSlideChange()"
+  >
+    <ng-template swiperSlide *ngFor="let fact of facts">
+      <mat-card class="fact-card">
+        <mat-card-header>
+          <mat-card-subtitle>
+            <p>Cat Fact #{{ facts.indexOf(fact) + 1 }}</p>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <div class="card-text-wrap">
+          <img mat-card-image [src]="fact.path" alt="{{ fact.fact }}" />
+          <mat-card-content>
+            <p>{{ fact.fact }}</p>
+          </mat-card-content>
         </div>
-      </div>
-    </div>
-  </div>
-</carousel>
+        <mat-card-actions>
+          <button (click)="addToFavorite(fact)" mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+  </swiper>
+</div>
+<router-outlet></router-outlet>
