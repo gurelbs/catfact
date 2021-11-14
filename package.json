@@ -7,8 +7,8 @@
         "start": "node index.js",
         "dev": "concurrently \"nodemon index.js\" \"cd client && ng serve -o",
         "build": "concurrently \"rm -rf build && cd client && ng build && mv dist/app ../build",
-        "autoGitUpload": "concurrently \"git add . && git commit -m \"auto build\" && git push origin main\"",
-        "autoHerokuUpload": "concurrently \"git push heroku main\"",
+        "autoGitUpload": "concurrently \"git add . && git commit -m 'updated' && git push origin main\"",
+        "autoHerokuUpload": "git push heroku main",
         "authDeploy": "npm run build && npm run autoGitUpload && npm run autoHerokuUpload"
     },
     "keywords": [],
