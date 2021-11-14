@@ -9,13 +9,12 @@
   objectFit="contain"
   [loop]="true"
   [arrowsOutside]="true"
-  [lightDOM]="true"
 >
-  <div *ngIf="facts.length > 0">
+  <div *ngIf="!!facts.length">
     <div *ngFor="let fact of facts">
       <div class="carousel-cell-wrap">
-        <div class="carousel-cell {{ facts.indexOf(fact) === 0 && 'active' }}" >
-          <h5 class="fact-text">{{ fact["fact"] }}</h5>
+        <div class="carousel-cell" >
+          {{ fact["fact"] }}
         </div>
       </div>
     </div>
