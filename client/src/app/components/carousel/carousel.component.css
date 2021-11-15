@@ -1,18 +1,30 @@
+.carousel-wrap {
+  position: relative;
+}
 .fact-card {
-  min-height: 500px;
-  max-height: max-content;
-  width: 80%;
-  max-width: 90%;
-  margin: 1rem auto;
+  height: 100%;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   position: relative;
   transition: all 0.5s ease;
+  padding: 0;
+  padding-bottom: 0.5rem;
+}
+.fact-card .subtitle {
+  margin-top: 1rem;
 }
 .fact-card img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+  position: relative;
 }
 .card-text-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,8 +34,8 @@
   max-height: max-content;
   text-align: center;
   color: white;
-  background: rgba(53, 48, 48, 0.5);
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.5);
+  /* z-index: -1; */
 }
 .card-text-wrap p {
   position: relative;
@@ -38,26 +50,57 @@
 }
 .fact-card:hover {
   background: rgba(9, 65, 117, 0.8);
+  cursor: grab;
 }
+.fact-card:active {
+  background: rgba(9, 65, 117, 0.8);
+  cursor: grabbing;
+}
+.fact-card button,
 .fact-card:hover button,
 .fact-card:hover p {
   color: white;
 }
-.swiper {
+.card-action {
   width: 100%;
-  height: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: clamp(16px, calc(2vw + 0.5rem), 2rem);
+  font-weight: lighter;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  text-shadow: 0 0 5px rgb(0, 0, 0);
+  margin-left: 0;
 }
-
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
+.save-icon:hover {
+  color: #00bcd4;
+  transition: all 0.5s ease;
+}
+.share-icon:hover {
+  color: #ff9800;
+  transition: all 0.5s ease;
 }
 @media screen and (max-width: 768px) {
   .fact-card {
     width: 100%;
     max-width: 100%;
   }
+  .fact-card img {
+    width: 100%;
+    min-height: calc(100vh - 188px);
+    object-fit: cover;
+    position: relative;
+  }
   .card-text-wrap {
     flex-direction: column;
+  }
+  .card-text-wrap p {
+    font-size: clamp(16px, calc(4vw + 0.5rem), 2rem);
   }
 }

@@ -5,22 +5,33 @@
     (swiper)="onSwiper($event)"
     (slideChange)="onSlideChange()"
   >
-    <ng-template swiperSlide *ngFor="let fact of facts">
+    <ng-template swiperSlide *ngFor="let catFact of facts">
       <mat-card class="fact-card">
         <mat-card-header>
           <mat-card-subtitle>
-            <p>Cat Fact #{{ facts.indexOf(fact) + 1 }}</p>
+            <p class="subtitle">Cat Fact #{{ facts.indexOf(catFact) + 1 }}</p>
           </mat-card-subtitle>
         </mat-card-header>
-        <div class="card-text-wrap">
-          <img mat-card-image [src]="fact.path" alt="{{ fact.fact }}" />
+        <img [src]="catFact.path" alt="{{ catFact.fact }}" />
+        <div class="card-text-wrap" *ngIf="catFact.path">
           <mat-card-content>
-            <p>{{ fact.fact }}</p>
+            <p>{{ catFact.fact }}</p>
           </mat-card-content>
         </div>
-        <mat-card-actions>
-          <button (click)="addToFavorite(fact)" mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+        <mat-card-actions class="card-action">
+          <button (click)="addToFavorite(catFact)" mat-button>
+            <mat-icon aria-hidden="false" aria-label="" class="save-icon"
+              >save</mat-icon
+            >
+          </button>
+          <button mat-button>
+            <mat-icon
+              aria-hidden="false"
+              aria-label="share-icon"
+              class="share-icon"
+              >share</mat-icon
+            >
+          </button>
         </mat-card-actions>
       </mat-card>
     </ng-template>

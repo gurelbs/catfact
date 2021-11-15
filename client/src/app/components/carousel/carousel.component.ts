@@ -44,7 +44,7 @@ export class CarouselComponent implements OnInit {
   }
   createRandomCatImage() {
     let numBetween10To99 = Math.floor(Math.random() * 90) + 10;
-    return `https://source.unsplash.com/600x3${numBetween10To99}/?cat,cats,kitten`;
+    return `https://source.unsplash.com/4${numBetween10To99}x2${numBetween10To99}/?cat,cats,kitten`;
   }
   getFacts(page: number = 1) {
     this.api.getFacts(page).subscribe((res: any) => {
