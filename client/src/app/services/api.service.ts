@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-
+import { apiURL, favoriteUrl } from '../api';
 interface ApiError {
   error: { message: string };
   status: number;
@@ -13,8 +13,6 @@ interface ApiError {
   providedIn: 'root',
 })
 export class ApiService {
-  apiURL = 'https://catfact.ninja';
-
   constructor(private http: HttpClient) {}
 
   httpOptions = {
@@ -22,9 +20,14 @@ export class ApiService {
       'Content-Type': 'application/json',
     }),
   };
-  getFacts(page: number = 1) {
+
+  getAllFacts() {
+    return this.http.get(apiURL).pipe(retry(1), catchError(this.handleError));
+  }
+
+  getFavorites() {
     return this.http
-      .get(`${this.apiURL}/facts?page=${page}`)
+      .get(favoriteUrl)
       .pipe(retry(1), catchError(this.handleError));
   }
   handleError(err: { error: any; message: any; status: any }) {

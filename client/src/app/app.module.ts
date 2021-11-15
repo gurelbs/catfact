@@ -14,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { SwiperModule } from 'swiper/angular';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 //  components
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +36,6 @@ import { FavoriteComponent } from './components/pages/favorite/favorite.componen
   ],
   imports: [
     // App
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -48,9 +50,13 @@ import { FavoriteComponent } from './components/pages/favorite/favorite.componen
     MatToolbarModule,
     MatIconModule,
     MatListModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    NgxSkeletonLoaderModule,
     // Carousel
     DragScrollModule,
     SwiperModule,
+    // type effect
   ],
   providers: [],
   bootstrap: [AppComponent],

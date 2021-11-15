@@ -3,6 +3,7 @@
 }
 .fact-card {
   height: 100%;
+  min-height: 500px;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
@@ -10,7 +11,9 @@
   transition: all 0.5s ease;
   padding: 0;
   padding-bottom: 0.5rem;
+  border-radius: 10px;
 }
+
 .fact-card .subtitle {
   margin-top: 1rem;
 }
@@ -34,8 +37,9 @@
   max-height: max-content;
   text-align: center;
   color: white;
-  background: rgba(0, 0, 0, 0.5);
+  background: #00000063;
   /* z-index: -1; */
+  border-radius: 10px;
 }
 .card-text-wrap p {
   position: relative;
@@ -63,6 +67,8 @@
 }
 .card-action {
   width: 100%;
+  position: relative;
+  top: 0;
   height: 5rem;
   display: flex;
   justify-content: center;
@@ -77,6 +83,7 @@
   word-spacing: 1px;
   text-shadow: 0 0 5px rgb(0, 0, 0);
   margin-left: 0;
+  border-radius: 0 0 10px 10px;
 }
 .save-icon:hover {
   color: #00bcd4;
@@ -86,10 +93,20 @@
   color: #ff9800;
   transition: all 0.5s ease;
 }
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.skeleton {
+  position: relative;
+  height: 100%;
+}
 @media screen and (max-width: 768px) {
   .fact-card {
     width: 100%;
     max-width: 100%;
+    border-radius: 0;
   }
   .fact-card img {
     width: 100%;
@@ -99,8 +116,12 @@
   }
   .card-text-wrap {
     flex-direction: column;
+    border-radius: 0;
   }
   .card-text-wrap p {
     font-size: clamp(16px, calc(4vw + 0.5rem), 2rem);
+  }
+  .card-action {
+    border-radius: 0;
   }
 }

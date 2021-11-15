@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CatFact } from '../../types';
+import axios from 'axios';
 import SwiperCore, {
   Swiper,
   SwiperOptions,
@@ -8,14 +10,8 @@ import SwiperCore, {
   Scrollbar,
   A11y,
 } from 'swiper';
-import axios from 'axios';
+import { log } from 'console';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
-
-interface CatFact {
-  fact: string;
-  length: number;
-  path: string;
-}
 
 @Component({
   selector: 'app-carousel',
@@ -23,59 +19,45 @@ interface CatFact {
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-  catName!: string;
-  activeIndex!: number;
-  facts: CatFact[] = [];
+  @Input() facts: CatFact[] = [];
+  loading = true;
+  currentCardIndex: number = 0;
   config: SwiperOptions = {
     slidesPerView: 1,
     loop: true,
     spaceBetween: 10,
-    // pagination: { clickable: true },
     mousewheel: true,
   };
   endPoint =
     process.env['NODE_ENV'] === 'production'
       ? '/api'
       : 'http://localhost:4000/api';
-  constructor(public api: ApiService) {}
+  constructor(private _snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {
-    this.getFacts();
-  }
-  createRandomCatImage() {
-    let numBetween10To99 = Math.floor(Math.random() * 90) + 10;
-    return `https://source.unsplash.com/4${numBetween10To99}x2${numBetween10To99}/?cat,cats,kitten`;
-  }
-  getFacts(page: number = 1) {
-    this.api.getFacts(page).subscribe((res: any) => {
-      let factsList = res.data.map(
-        (catFact: { fact: string; length: number }, i: number) => ({
-          factNumber: i++,
-          fact: catFact.fact,
-          length: catFact.length,
-          path: this.createRandomCatImage(),
-        })
-      );
-      this.facts.push(...factsList);
+  ngOnInit(): void {}
+  openSnackBar(str: string, colorClass: string) {
+    this._snackBar.open(str, '', {
+      duration: 2000,
+      panelClass: ['mat-toolbar', colorClass],
     });
   }
+
   onSwiper(swiper: any) {
-    console.log(swiper.activeIndex);
-    if (swiper.activeIndex % 10 === 0) {
-      console.log('fetch 10 more images');
-      this.getFacts(swiper.activeIndex / 10 + 1);
-    }
+    this.currentCardIndex = swiper.activeIndex;
   }
   onSlideChange() {
     console.log('slide change');
+    console.log(this.currentCardIndex);
   }
-  // showFact(fact: {}) {
-  //   return JSON.stringify(fact);
-  // }
+  onImageLoad() {
+    this.loading = false;
+  }
   async addToFavorite(fact: CatFact) {
     try {
       const { data } = await axios.post(`${this.endPoint}/favorites`, { fact });
-      console.log(data);
+      if (data.success) this.openSnackBar(data.success, 'mat-primary');
+      if (data.warn) this.openSnackBar(data.warn, 'mat-warn');
+      if (data.error) this.openSnackBar(data.error, 'mat-accent');
     } catch (error) {
       console.log(error);
     }

@@ -1,0 +1,19 @@
+.favorites {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+}
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.favorites-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+}

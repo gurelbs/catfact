@@ -1,6 +1,9 @@
-<div class="faborite">
-  <h1>Here are Your Favorite Facts!</h1>
-  <div class="container carousel-wrap">
-    <app-carousel></app-carousel>
+<div class="favorites h-100">
+  <div class="container-fluid carousel-wrap">
+    <div *ngIf="!favorites.length" class="favorites-empty">
+      <h1>No favorites found</h1>
+      <a mat-list-item routerLink="/all">Go to All Facts</a>
+    </div>
+    <app-carousel [facts]="favorites"></app-carousel>
   </div>
 </div>
