@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { apiURL, favoriteUrl, mainApiUrl } from '../api';
+import { apiURL, favoriteUrl, mainApiUrl, breedsApi } from '../api';
 interface ApiError {
   error: { message: string };
   status: number;
@@ -38,6 +38,12 @@ export class ApiService {
   getFavorites() {
     return this.http
       .get(favoriteUrl, { params: { user: this.user } })
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getBreeds() {
+    return this.http
+      .get(breedsApi)
       .pipe(retry(1), catchError(this.handleError));
   }
   handleError(err: { error: any; message: any; status: any }) {

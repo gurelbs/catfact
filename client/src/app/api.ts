@@ -9,3 +9,4 @@ export const apiURL: string =
   'https://catfact.ninja/facts?max_length=100&limit=332';
 
 export const favoriteUrl: string = `${mainApiUrl}/favorites`;
+export const breedsApi: string = 'https://ivrit.cf/api/cats';

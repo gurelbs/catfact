@@ -2,7 +2,7 @@
   <!-- <div *ngIf="!facts.length" class="container spinner">
     <mat-spinner></mat-spinner>
   </div> -->
-  <div *ngIf="facts.length">
+  <div *ngIf="items && items.length">
     <swiper
       #swiper
       [config]="config"
@@ -11,7 +11,7 @@
     >
       <ng-template
         swiperSlide
-        *ngFor="let catFact of facts"
+        *ngFor="let catFact of items"
         class="carousel-container"
       >
         <mat-card class="fact-card">
@@ -30,7 +30,7 @@
           <mat-card-actions class="card-action">
             <button (click)="addToFavorite(catFact)" mat-button>
               <mat-icon aria-hidden="false" aria-label="" class="save-icon"
-                >save</mat-icon
+                >favorite</mat-icon
               >
             </button>
             <button mat-button>

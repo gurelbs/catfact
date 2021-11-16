@@ -1,0 +1,31 @@
+<div class="main h-100">
+  <div *ngIf="!breeds.length" class="favorites-empty">
+    <h1>No breeds found</h1>
+    <a mat-list-item routerLink="/all">Go to All Facts</a>
+  </div>
+  <div class="container-fluid carousel-wrap" *ngIf="breeds">
+    <swiper #swiper [config]="config">
+      <ng-template
+        swiperSlide
+        *ngFor="let breedData of breeds"
+        class="carousel-container"
+      >
+        <mat-card class="breed-card">
+          <img
+            [src]="breedData.image"
+            alt="{{ breedData.breed }}"
+            loading="lazy"
+          />
+          <div class="card-text-wrap" *ngIf="breedData.image">
+            <a href="{{ breedData.wiki }}" target="_blank">
+              <p class="subtitle">Cat Origin: {{ breedData.origin }}</p>
+            </a>
+            <mat-card-content>
+              <p>{{ breedData.breed }}</p>
+            </mat-card-content>
+          </div>
+        </mat-card>
+      </ng-template>
+    </swiper>
+  </div>
+</div>

@@ -24,9 +24,7 @@ export class HomepageComponent implements OnInit {
           factNumber: ~~(Math.random() * 10000),
           fact: catFact.fact,
           length: catFact.length,
-          path: `https://source.unsplash.com/400x200/?cat,cats,kitten`,
-
-          // path: `https://source.unsplash.com/4${randomNum10To99()}x2${randomNum10To99()}/?cat,cats,kitten`,
+          path: `https://source.unsplash.com/4${randomNum10To99()}x2${randomNum10To99()}/?cat,cats,kitten`,
         })
       );
       this.allFacts = factsList;

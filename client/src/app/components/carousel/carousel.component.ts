@@ -1,6 +1,7 @@
 import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CatFact } from '../../types';
+import { CatFact, CatBreeds } from '../../types';
+
 import axios from 'axios';
 import SwiperCore, {
   Swiper,
@@ -21,7 +22,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-  @Input() facts: CatFact[] = [];
+  @Input() items: CatFact[] = [];
   loading = true;
   screenWidth: number = window.innerWidth;
   currentCardIndex: number = 0;

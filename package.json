@@ -9,7 +9,7 @@
 		"buildClient": "rm -rf build && npm i --prefix client && npm run build --prefix client",
 		"autoGitUpload": "git add . && git commit -m 'updated' && git push origin main",
 		"autoHerokuUpload": "git push heroku main",
-		"authDeploy": "concurrently -m=1 \"npm run buildClient\" \"npm run autoGitUpload\" \"npm run autoHerokuUpload\""
+		"autoDeploy": "concurrently -m=1 \"npm run buildClient\" \"npm run autoGitUpload\" \"npm run autoHerokuUpload\""
 	},
 	"keywords": [],
 	"author": "",

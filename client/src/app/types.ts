@@ -4,3 +4,10 @@ export interface CatFact {
   length: number;
   path: string;
 }
+
+export interface CatBreeds {
+  breed: string;
+  origin: string;
+  image: string;
+  wiki: string;
+}

@@ -31,6 +31,8 @@ import { HomepageComponent } from './components/pages/homepage/homepage.componen
 import { FavoriteComponent } from './components/pages/favorite/favorite.component';
 import { MainComponent } from './components/pages/main/main.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { BreedsComponent } from './components/pages/breeds/breeds.component';
+import { AboutComponent } from './components/pages/about/about.component';
 // For MDB Angular Free
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     FavoriteComponent,
     MainComponent,
     DialogComponent,
+    BreedsComponent,
+    AboutComponent,
   ],
   imports: [
     // App
