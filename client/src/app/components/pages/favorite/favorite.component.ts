@@ -16,8 +16,10 @@ export class FavoriteComponent implements OnInit {
   }
 
   getFavoritesFacts() {
-    this.api.getFavorites().subscribe((facts: any) => {
-      this.favorites = facts;
+    this.api.getFavorites().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.favorites = res.data;
+      }
     });
   }
 }

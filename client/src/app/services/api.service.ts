@@ -13,6 +13,7 @@ interface ApiError {
   providedIn: 'root',
 })
 export class ApiService {
+  user: any = localStorage.getItem('user');
   constructor(private http: HttpClient) {}
 
   httpOptions = {
@@ -36,7 +37,7 @@ export class ApiService {
 
   getFavorites() {
     return this.http
-      .get(favoriteUrl)
+      .get(favoriteUrl, { params: { user: this.user } })
       .pipe(retry(1), catchError(this.handleError));
   }
   handleError(err: { error: any; message: any; status: any }) {

@@ -46,10 +46,10 @@ export class DialogComponent implements OnInit {
     ) {
       this.openSnackBar('Email must be valid', 'mat-accent');
     } else {
-      this.api.createUser(this.data).subscribe((res) => {
-        console.log(res);
-        if (res.email && res.nickname && res._id) {
-          localStorage.setItem('user', JSON.stringify(res));
+      this.api.createUser(this.data).subscribe(({ user }) => {
+        console.log(user);
+        if (user.email && user.nickname && user._id) {
+          localStorage.setItem('user', JSON.stringify(user));
           this.openSnackBar('Success!', 'mat-primary');
           this.dialogRef.close();
           window.location.reload();
