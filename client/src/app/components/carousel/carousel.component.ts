@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CatFact } from '../../types';
 import axios from 'axios';
@@ -10,7 +10,9 @@ import SwiperCore, {
   Scrollbar,
   A11y,
 } from 'swiper';
-import { log } from 'console';
+import { favoriteUrl } from '../../api';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 @Component({
@@ -19,22 +21,24 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-  @Input() facts: CatFact[] = [];
-  loading = true;
+  @Input()
+  facts: CatFact[] = [];
+  screenWidth: number = window.innerWidth;
   currentCardIndex: number = 0;
   config: SwiperOptions = {
-    slidesPerView: 1,
+    slidesPerView: this.screenWidth,
     loop: true,
     spaceBetween: 10,
     mousewheel: true,
   };
-  endPoint =
-    process.env['NODE_ENV'] === 'production'
-      ? '/api'
-      : 'http://localhost:4000/api';
+
   constructor(private _snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {}
+  @HostListener('window:resize', ['$event'])
+  ngOnInit() {
+    this.screenWidth = window.innerWidth < 600 ? 1 : 2;
+    this.config.slidesPerView = this.screenWidth;
+  }
   openSnackBar(str: string, colorClass: string) {
     this._snackBar.open(str, '', {
       duration: 2000,
@@ -50,11 +54,11 @@ export class CarouselComponent implements OnInit {
     console.log(this.currentCardIndex);
   }
   onImageLoad() {
-    this.loading = false;
+    // this.loading = false;
   }
   async addToFavorite(fact: CatFact) {
     try {
-      const { data } = await axios.post(`${this.endPoint}/favorites`, { fact });
+      const { data } = await axios.post(favoriteUrl, { fact });
       if (data.success) this.openSnackBar(data.success, 'mat-primary');
       if (data.warn) this.openSnackBar(data.warn, 'mat-warn');
       if (data.error) this.openSnackBar(data.error, 'mat-accent');

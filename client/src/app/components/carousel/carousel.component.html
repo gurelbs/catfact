@@ -1,21 +1,20 @@
 <div class="carousel-wrap">
-  <div *ngIf="!facts || !facts.length" class="container spinner">
+  <div *ngIf="!facts.length" class="container spinner">
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="facts.length > 0">
+  <div *ngIf="facts.length">
     <swiper
       #swiper
       [config]="config"
       (swiper)="onSwiper($event)"
       (slideChange)="onSlideChange()"
     >
-      <ng-template swiperSlide *ngFor="let catFact of facts">
+      <ng-template
+        swiperSlide
+        *ngFor="let catFact of facts"
+        class="carousel-container"
+      >
         <mat-card class="fact-card">
-          <mat-card-header>
-            <mat-card-subtitle>
-              <p class="subtitle">Cat Fact #{{ catFact.factNumber }}</p>
-            </mat-card-subtitle>
-          </mat-card-header>
           <img
             [src]="catFact.path"
             alt="{{ catFact.fact }}"
@@ -23,6 +22,7 @@
             (load)="onImageLoad()"
           />
           <div class="card-text-wrap" *ngIf="catFact.path">
+            <p class="subtitle">Cat Fact #{{ catFact.factNumber }}</p>
             <mat-card-content>
               <p>{{ catFact.fact }}</p>
             </mat-card-content>
