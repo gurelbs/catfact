@@ -109,17 +109,25 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 56px);
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+}
+.mat-card > .mat-card-actions:last-child {
+  margin-bottom: 0;
+}
+.mat-card-actions {
+  margin-left: 0;
+  margin-right: 0;
 }
 @media screen and (max-width: 768px) {
   .fact-card {
     min-height: calc(100vh - 56px);
     border-radius: 0;
     max-width: 100%;
+    transform: scale(1);
   }
   .fact-card img {
     border-radius: 0;
