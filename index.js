@@ -1,3 +1,5 @@
+require('dotenv').config()
+require('./controllers/mongoose')()
 const express = require('express')
 const cors = require('cors')
 const path = require('path')

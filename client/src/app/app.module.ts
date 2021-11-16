@@ -16,7 +16,11 @@ import { DragScrollModule } from 'ngx-drag-scroll';
 import { SwiperModule } from 'swiper/angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 //  components
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +29,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/pages/homepage/homepage.component';
 import { FavoriteComponent } from './components/pages/favorite/favorite.component';
+import { MainComponent } from './components/pages/main/main.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 // For MDB Angular Free
 @NgModule({
   declarations: [
@@ -33,6 +39,8 @@ import { FavoriteComponent } from './components/pages/favorite/favorite.componen
     NavbarComponent,
     HomepageComponent,
     FavoriteComponent,
+    MainComponent,
+    DialogComponent,
   ],
   imports: [
     // App
@@ -53,6 +61,10 @@ import { FavoriteComponent } from './components/pages/favorite/favorite.componen
     MatSnackBarModule,
     MatProgressSpinnerModule,
     NgxSkeletonLoaderModule,
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     // Carousel
     DragScrollModule,
     SwiperModule,

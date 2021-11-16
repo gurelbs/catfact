@@ -1,0 +1,18 @@
+<div class="main h-100" *ngIf="user">
+  <div class="container-fluid carousel-wrap">
+    <div>
+      <h1>Welcome, {{ user.nickname }}!</h1>
+    </div>
+    <div class="btns">
+      <button mat-raised-button color="primary">
+        <a mat-list-item routerLink="/all">All Fact</a>
+      </button>
+      <button mat-raised-button color="accent">
+        <a mat-list-item routerLink="/favorite">your Favorites</a>
+      </button>
+      <button mat-raised-button color="warn">
+        <a mat-list-item routerLink="/about">learn More</a>
+      </button>
+    </div>
+  </div>
+</div>

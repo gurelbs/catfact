@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { apiURL, favoriteUrl } from '../api';
+import { apiURL, favoriteUrl, mainApiUrl } from '../api';
 interface ApiError {
   error: { message: string };
   status: number;
@@ -20,6 +20,15 @@ export class ApiService {
       'Content-Type': 'application/json',
     }),
   };
+
+  createUser(userDetails: {
+    nickname: string;
+    email: string;
+  }): Observable<any> {
+    return this.http
+      .post(`${mainApiUrl}/users`, { userDetails })
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
   getAllFacts() {
     return this.http.get(apiURL).pipe(retry(1), catchError(this.handleError));

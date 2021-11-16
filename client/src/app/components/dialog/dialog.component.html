@@ -1,0 +1,54 @@
+<div class="dialog-container">
+  <h1 mat-dialog-title>Welcome to the CatFact! {{ data.nickname }}</h1>
+  <div mat-dialog-content>
+    <p>What's your cat nickname?</p>
+    <mat-form-field>
+      <mat-label>Enter your cat name</mat-label>
+      <input
+        type="text"
+        id="nickname"
+        name="nickname"
+        matInput
+        required
+        minlength="4"
+        [(ngModel)]="data.nickname"
+        #nickname="ngModel"
+      />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <p>What's your email?</p>
+    <mat-form-field>
+      <mat-label>Email Address</mat-label>
+      <input
+        matInput
+        [(ngModel)]="data.email"
+        type="email"
+        ngModel
+        required
+        [email]="true"
+        #email="ngModel"
+      />
+    </mat-form-field>
+  </div>
+  <div
+    *ngIf="
+      (nickname.invalid && (nickname.dirty || nickname.touched)) ||
+      (email.invalid && (email.dirty || email.touched))
+    "
+  >
+    <div *ngIf="nickname.errors?.['required']">Name is required</div>
+    <div *ngIf="email.errors?.['required']">Email is required</div>
+    <div *ngIf="email.errors?.['email']">Email is invalid</div>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      disabled="{{ nickname.invalid || email.invalid || email.errors?.['email'].length > 0 }}"
+      mat-button
+      (click)="handleSubmit()"
+      cdkFocusInitial
+    >
+      Ok
+    </button>
+  </div>
+</div>

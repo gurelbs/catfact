@@ -1,15 +1,16 @@
 const { Router } = require('express')
+const createOrFindUser = require('./controllers/createOrFindUser')
+const saveNewFact = require('./controllers/saveNewFact')
+const findUserAndPushFact = require('./controllers/findUserAndPushFact')
 const router = Router()
 const userFavorites = []
-router.post('/favorites', (req, res) => {
-	const { fact } = req.body
-	if (!fact) return res.send({ error: 'No fact provided' })
-	if (userFavorites.find(f => f.fact === fact.fact)) {
-		return res.send({ warn: `fact #${fact.factNumber} already exists in your favorites!` })
-	}
-	userFavorites.push(fact)
-	res.send({ success: `fact #${fact.factNumber} successfully added to your favorites!` })
+
+router.post('/users', createOrFindUser, (req, res) => {
+	const { user } = req
+	res.json(user)
 })
+
+router.post('/favorites', saveNewFact, findUserAndPushFact)
 
 router.get('/favorites', (req, res) => {
 	if (!userFavorites.length) return res.send({ error: 'No favorites found' })

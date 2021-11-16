@@ -21,14 +21,14 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-  @Input()
-  facts: CatFact[] = [];
+  @Input() facts: CatFact[] = [];
+  loading = true;
   screenWidth: number = window.innerWidth;
   currentCardIndex: number = 0;
   config: SwiperOptions = {
-    slidesPerView: this.screenWidth,
+    slidesPerView: 1,
     loop: true,
-    spaceBetween: 10,
+    spaceBetween: 5,
     mousewheel: true,
   };
 
@@ -36,8 +36,8 @@ export class CarouselComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   ngOnInit() {
-    this.screenWidth = window.innerWidth < 600 ? 1 : 2;
-    this.config.slidesPerView = this.screenWidth;
+    // this.screenWidth = window.innerWidth < 600 ? 1 : 2;
+    // this.config.slidesPerView = this.screenWidth;
   }
   openSnackBar(str: string, colorClass: string) {
     this._snackBar.open(str, '', {
@@ -54,11 +54,16 @@ export class CarouselComponent implements OnInit {
     console.log(this.currentCardIndex);
   }
   onImageLoad() {
-    // this.loading = false;
+    this.loading = false;
   }
   async addToFavorite(fact: CatFact) {
     try {
-      const { data } = await axios.post(favoriteUrl, { fact });
+      const user = JSON.parse(localStorage.getItem('user') || '');
+      const { data } = await axios.post(favoriteUrl, {
+        factDetails: fact,
+        user,
+      });
+      console.log(data);
       if (data.success) this.openSnackBar(data.success, 'mat-primary');
       if (data.warn) this.openSnackBar(data.warn, 'mat-warn');
       if (data.error) this.openSnackBar(data.error, 'mat-accent');
