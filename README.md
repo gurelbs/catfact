@@ -13,7 +13,8 @@ git clone https://github.com/gurelbs/catfact.git
 then run:
 
 ```bash
-npm i && npmi --prefix client
+cd catfact
+npm i && npm i --prefix client
 npm run dev
 ```
 
