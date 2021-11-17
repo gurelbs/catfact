@@ -21,6 +21,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 //  components
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +35,8 @@ import { MainComponent } from './components/pages/main/main.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { BreedsComponent } from './components/pages/breeds/breeds.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { ShareComponent } from './components/share/share.component';
+
 // For MDB Angular Free
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { AboutComponent } from './components/pages/about/about.component';
     DialogComponent,
     BreedsComponent,
     AboutComponent,
+    ShareComponent,
   ],
   imports: [
     // App
@@ -69,6 +74,8 @@ import { AboutComponent } from './components/pages/about/about.component';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     // Carousel
     DragScrollModule,
     SwiperModule,

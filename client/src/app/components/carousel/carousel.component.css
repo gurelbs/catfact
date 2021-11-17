@@ -122,6 +122,13 @@
   margin-left: 0;
   margin-right: 0;
 }
+.blue {
+  color: #00bcd4;
+}
+
+.red {
+  color: white;
+}
 @media screen and (max-width: 768px) {
   .fact-card {
     min-height: calc(100vh - 56px);

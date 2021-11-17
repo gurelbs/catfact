@@ -23,6 +23,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 })
 export class CarouselComponent implements OnInit {
   @Input() items: CatFact[] = [];
+  favoriteIconColor = '';
+  shareOpen = false;
   loading = true;
   screenWidth: number = window.innerWidth;
   currentCardIndex: number = 0;
@@ -50,16 +52,24 @@ export class CarouselComponent implements OnInit {
   onSwiper(swiper: any) {
     this.currentCardIndex = swiper.activeIndex;
   }
-  onSlideChange() {
-    console.log('slide change');
-    console.log(this.currentCardIndex);
-  }
   onImageLoad() {
     this.loading = false;
   }
+  share(fact: CatFact) {
+    this.shareOpen = true;
+    const url = `https://www.whatsapp.com/send?text=${fact.fact}`;
+    window.open(url, '_blank');
+  }
+  factInFavorites(fact: string) {
+    const user = JSON.parse(localStorage.getItem('user') || '');
+    const { favoritesFacts } = user;
+    if (!user || !favoritesFacts) return false;
+    return favoritesFacts.find((f: CatFact) => f.fact === fact) ? true : false;
+  }
+
   async addToFavorite(fact: CatFact) {
+    const user = JSON.parse(localStorage.getItem('user') || '');
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '');
       const { data } = await axios.post(favoriteUrl, {
         factDetails: fact,
         user,

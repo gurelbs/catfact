@@ -27,9 +27,6 @@ export class MainComponent implements OnInit {
     }
   }
 
-  refreshComponent() {
-    this.router.navigate(['/all']);
-  }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { nickname: this.nickname, email: this.email },

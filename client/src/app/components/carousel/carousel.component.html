@@ -3,12 +3,9 @@
     <mat-spinner></mat-spinner>
   </div> -->
   <div *ngIf="items && items.length">
-    <swiper
-      #swiper
-      [config]="config"
-      (swiper)="onSwiper($event)"
-      (slideChange)="onSlideChange()"
-    >
+    <swiper #swiper [config]="config" (swiper)="onSwiper($event)">
+      <!-- (slideChange)="onSlideChange()" -->
+
       <ng-template
         swiperSlide
         *ngFor="let catFact of items"
@@ -29,20 +26,28 @@
           </div>
           <mat-card-actions class="card-action">
             <button (click)="addToFavorite(catFact)" mat-button>
-              <mat-icon aria-hidden="false" aria-label="" class="save-icon"
+              <mat-icon
+                aria-hidden="false"
+                [ngClass]="{
+                  blue: factInFavorites(catFact.fact),
+                  red: !factInFavorites(catFact.fact)
+                }"
                 >favorite</mat-icon
               >
             </button>
-            <button mat-button>
+            <!-- <button mat-button>
               <mat-icon
                 aria-hidden="false"
                 aria-label="share-icon"
                 class="share-icon"
                 >share</mat-icon
               >
-            </button>
+            </button> -->
           </mat-card-actions>
         </mat-card>
+        <div *ngIf="shareOpen">
+          <app-share></app-share>
+        </div>
       </ng-template>
     </swiper>
   </div>
