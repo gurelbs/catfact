@@ -1,8 +1,8 @@
 <div class="carousel-wrap">
-  <!-- <div *ngIf="!facts.length" class="container spinner">
-    <mat-spinner></mat-spinner>
-  </div> -->
-  <div *ngIf="items && items.length">
+  <div *ngIf="items">
+    <div *ngIf="loading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
     <swiper #swiper [config]="config" (swiper)="onSwiper($event)">
       <!-- (slideChange)="onSlideChange()" -->
 
@@ -12,12 +12,7 @@
         class="carousel-container"
       >
         <mat-card class="fact-card">
-          <img
-            [src]="catFact.path"
-            alt="{{ catFact.fact }}"
-            loading="lazy"
-            (load)="onImageLoad()"
-          />
+          <img [src]="catFact.path" alt="{{ catFact.fact }}" loading="lazy" />
           <div class="card-text-wrap" *ngIf="catFact.path">
             <p class="subtitle">Cat Fact #{{ catFact.factNumber }}</p>
             <mat-card-content>
@@ -28,10 +23,7 @@
             <button (click)="addToFavorite(catFact)" mat-button>
               <mat-icon
                 aria-hidden="false"
-                [ngClass]="{
-                  blue: factInFavorites(catFact.fact),
-                  red: !factInFavorites(catFact.fact)
-                }"
+                class="{{ loading ? 'black' : 'white' }}"
                 >favorite</mat-icon
               >
             </button>

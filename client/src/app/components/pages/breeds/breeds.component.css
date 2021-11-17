@@ -94,6 +94,13 @@
   margin-left: 0;
   margin-right: 0;
 }
+.spinner {
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media screen and (max-width: 768px) {
   .breed-card {
     min-height: calc(100vh - 56px);

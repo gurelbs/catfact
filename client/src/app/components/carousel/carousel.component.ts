@@ -25,7 +25,7 @@ export class CarouselComponent implements OnInit {
   @Input() items: CatFact[] = [];
   favoriteIconColor = '';
   shareOpen = false;
-  loading = true;
+  loading = false;
   screenWidth: number = window.innerWidth;
   currentCardIndex: number = 0;
   config: SwiperOptions = {
@@ -52,9 +52,6 @@ export class CarouselComponent implements OnInit {
   onSwiper(swiper: any) {
     this.currentCardIndex = swiper.activeIndex;
   }
-  onImageLoad() {
-    this.loading = false;
-  }
   share(fact: CatFact) {
     this.shareOpen = true;
     const url = `https://www.whatsapp.com/send?text=${fact.fact}`;
@@ -63,23 +60,28 @@ export class CarouselComponent implements OnInit {
   factInFavorites(fact: string) {
     const user = JSON.parse(localStorage.getItem('user') || '');
     const { favoritesFacts } = user;
-    if (!user || !favoritesFacts) return false;
-    return favoritesFacts.find((f: CatFact) => f.fact === fact) ? true : false;
+    if (!user || !favoritesFacts) this.loading = true;
+    return favoritesFacts.find((f: CatFact) => f.fact === fact)
+      ? (this.loading = true)
+      : (this.loading = true);
   }
 
   async addToFavorite(fact: CatFact) {
+    this.factInFavorites(fact.fact);
     const user = JSON.parse(localStorage.getItem('user') || '');
     try {
+      this.loading = true;
       const { data } = await axios.post(favoriteUrl, {
         factDetails: fact,
         user,
       });
-      console.log(data);
       if (data.success) this.openSnackBar(data.success, 'mat-primary');
       if (data.warn) this.openSnackBar(data.warn, 'mat-warn');
       if (data.error) this.openSnackBar(data.error, 'mat-accent');
+      this.loading = false;
     } catch (error) {
       console.log(error);
+      this.loading = false;
     }
   }
 }
