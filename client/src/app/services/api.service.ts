@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { apiURL, favoriteUrl, mainApiUrl, breedsApi } from '../api';
+import { CatFact } from '../types';
 interface ApiError {
   error: { message: string };
   status: number;
@@ -33,6 +34,12 @@ export class ApiService {
 
   getAllFacts() {
     return this.http.get(apiURL).pipe(retry(1), catchError(this.handleError));
+  }
+
+  postFavorite(fact: CatFact, user: any) {
+    return this.http
+      .post(favoriteUrl, { factDetails: fact, user }, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getFavorites() {

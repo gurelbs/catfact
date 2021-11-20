@@ -1,8 +1,6 @@
 import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CatFact, CatBreeds } from '../../types';
-
-import axios from 'axios';
+import { CatFact } from '../../types';
 import SwiperCore, {
   Swiper,
   SwiperOptions,
@@ -11,8 +9,7 @@ import SwiperCore, {
   Scrollbar,
   A11y,
 } from 'swiper';
-import { favoriteUrl } from '../../api';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiService } from '../../services/api.service';
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -35,7 +32,7 @@ export class CarouselComponent implements OnInit {
     mousewheel: true,
   };
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, public api: ApiService) {}
 
   @HostListener('window:resize', ['$event'])
   ngOnInit() {
@@ -60,28 +57,26 @@ export class CarouselComponent implements OnInit {
   factInFavorites(fact: string) {
     const user = JSON.parse(localStorage.getItem('user') || '');
     const { favoritesFacts } = user;
-    if (!user || !favoritesFacts) this.loading = true;
-    return favoritesFacts.find((f: CatFact) => f.fact === fact)
-      ? (this.loading = true)
-      : (this.loading = true);
+    if (!favoritesFacts) return false;
+    return favoritesFacts.find((f: CatFact) => f.fact === fact) ? true : false;
   }
 
   async addToFavorite(fact: CatFact) {
-    this.factInFavorites(fact.fact);
+    const factInFavorites = this.factInFavorites(fact.fact);
     const user = JSON.parse(localStorage.getItem('user') || '');
-    try {
-      this.loading = true;
-      const { data } = await axios.post(favoriteUrl, {
-        factDetails: fact,
-        user,
-      });
-      if (data.success) this.openSnackBar(data.success, 'mat-primary');
-      if (data.warn) this.openSnackBar(data.warn, 'mat-warn');
-      if (data.error) this.openSnackBar(data.error, 'mat-accent');
-      this.loading = false;
-    } catch (error) {
-      console.log(error);
-      this.loading = false;
+    if (!factInFavorites) {
+      try {
+        this.loading = true;
+        this.api.postFavorite(fact, user).subscribe((data: any) => {
+          if (data?.success) this.openSnackBar(data?.success, 'mat-primary');
+          if (data?.warn) this.openSnackBar(data?.warn, 'mat-warn');
+          if (data?.error) this.openSnackBar(data?.error, 'mat-accent');
+          this.loading = false;
+        });
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+      }
     }
   }
 }
